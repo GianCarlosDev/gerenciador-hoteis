@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class CreatedHotelDto {
-    private String nome;
+    private String nomeHotel;
     private String endereco;
     private LocalDate criacaoHotel;
 

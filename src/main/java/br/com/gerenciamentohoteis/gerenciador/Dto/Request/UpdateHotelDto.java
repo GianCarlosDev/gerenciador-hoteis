@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UpdateHotelDto {
-    private String nome;
+    private String nomeHotel;
     private String endereco;
 }
 

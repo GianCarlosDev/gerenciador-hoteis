@@ -20,7 +20,7 @@ public class HotelService {
 
     public CreatedHotelDto createdHotel(CreatedHotelDto createdHotelDto){
         Hotel hotel = new Hotel();
-        hotel.setNome(createdHotelDto.getNome());
+        hotel.setNomeHotel(createdHotelDto.getNomeHotel());
         hotel.setEndereco(createdHotelDto.getEndereco());
         hotelRepository.save(hotel);
         return createdHotelDto;
@@ -29,18 +29,18 @@ public class HotelService {
     public Stream<ListHotelDto> listaDeHoteis(){
         List<Hotel> entity = hotelRepository.findAll();
         return entity.stream().map( hotel -> new ListHotelDto(
-                hotel.getId(),hotel.getNome(),hotel.getEndereco()
+                hotel.getId(),hotel.getNomeHotel(),hotel.getEndereco()
         ));
     }
 
     public GetById getHotelById (Long id){
         Hotel entity = hotelRepository.findById(id).orElseThrow(() -> new HotelNotFoundException("Hotel não foi encontrado"));
         return new GetById(
-                entity.getId(),entity.getNome(),entity.getEndereco());
+                entity.getId(),entity.getNomeHotel(),entity.getEndereco());
     }
     public void updateById (Long id, UpdateHotelDto updateHotelDto){
         Hotel hotelEntity = hotelRepository.findById(id).orElseThrow(() -> new HotelNotFoundException("Hotel não foi encontrado"));
-        hotelEntity.setNome(updateHotelDto.getNome());
+        hotelEntity.setNomeHotel(updateHotelDto.getNomeHotel());
         hotelEntity.setEndereco(updateHotelDto.getEndereco());
         hotelRepository.save(hotelEntity);
     }

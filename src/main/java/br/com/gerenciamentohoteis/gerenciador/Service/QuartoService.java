@@ -48,7 +48,7 @@ public class QuartoService {
         Quarto quarto = quartoRepository.findById(id).orElseThrow(()-> new QuartoNotFoundException("quarto não encontrado"));
 
         return new GetQuartoByHotel(
-                hotel.getNome(),quarto.getQuartos(),quarto.getPrecoNoite(),
+                hotel.getNomeHotel(),quarto.getQuartos(),quarto.getPrecoNoite(),
                 quarto.getDisponivel(),quarto.getNumero());
     }
     public void updateQuarto(Long hotelId, Long id, UpdateQuartoDto dto){
