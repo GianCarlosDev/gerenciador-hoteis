@@ -1,6 +1,6 @@
 package br.com.gerenciamentohoteis.gerenciador.Entity.Enum;
 
-public enum TiposQuartos {
+public enum RoomTypes {
     STANDARD,
     DELUXE,
     EXECUTIVO

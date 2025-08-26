@@ -1,14 +1,14 @@
 package br.com.gerenciamentohoteis.gerenciador.Dto.Request;
 
-import br.com.gerenciamentohoteis.gerenciador.Entity.Enum.TiposQuartos;
+import br.com.gerenciamentohoteis.gerenciador.Entity.Enum.RoomTypes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class GetQuartoByHotel {
+public class GetRoomByHotelDTO {
     private String nome;
-    private TiposQuartos quartos;
+    private RoomTypes quartos;
     private Double precoNoite;
     private Boolean disponivel;
     private Integer numero;

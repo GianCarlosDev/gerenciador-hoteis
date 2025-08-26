@@ -1,6 +1,6 @@
 package br.com.gerenciamentohoteis.gerenciador.Entity;
 
-import br.com.gerenciamentohoteis.gerenciador.Entity.Enum.TiposQuartos;
+import br.com.gerenciamentohoteis.gerenciador.Entity.Enum.RoomTypes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,20 +13,21 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quarto {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "room_id")
+    private Long roomId;
     @Enumerated(EnumType.STRING)
-    private TiposQuartos quartos;
-    private Double precoNoite;
-    private Boolean disponivel = true;
-    private Integer numero;
+    private RoomTypes rooms;
+    private Double nightPrice;
+    private Boolean available = true;
+    private Integer number;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id",nullable = false)
     private Hotel hotel;
 
-    @OneToMany(mappedBy = "quarto",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Reserva> reservas = new ArrayList<>();
+    @OneToMany(mappedBy = "room",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Reservation> reservations = new ArrayList<>();
 }

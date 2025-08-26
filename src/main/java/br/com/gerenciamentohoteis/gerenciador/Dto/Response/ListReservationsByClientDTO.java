@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListReservasByClientDto {
-    private String nomeCliente;
-    private Integer numero;
-    private Double precoNoite;
-    private String nomeHotel;
+public class ListReservationsByClientDTO {
+    private Integer number;
+    private Double nightPrice;
+    private String nameHotel;
     private LocalDateTime checkin;
     private LocalDateTime checkout;
 }

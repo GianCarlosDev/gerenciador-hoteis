@@ -15,12 +15,13 @@ import java.util.List;
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "Hotel")
-    private String nomeHotel;
-    @Column(unique = true, length = 260, name = "Endereço")
-    private String endereco;
+    @Column(name = "hotel_id")
+    private Long hotelId;
+    @Column(name = "name")
+    private String nameHotel;
+    @Column(unique = true, length = 260, name = "address")
+    private String address;
 
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Quarto> quartos = new ArrayList<>();
+    private List<Room> rooms = new ArrayList<>();
 }

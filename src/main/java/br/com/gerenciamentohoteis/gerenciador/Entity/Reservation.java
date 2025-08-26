@@ -12,19 +12,21 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-    public class Reserva {
+    public class Reservation {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String nomeCliente;
-        @Column(length = 14)
-        private String cpf;
+        @Column(name = "reservation_id")
+        private Long reservationId;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy  HH:mm")
         private LocalDateTime checkin;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy  HH:mm")
         private LocalDateTime checkout;
 
         @ManyToOne
-        @JoinColumn(name = "quarto_id",nullable = false)
-        private Quarto quarto;
+        @JoinColumn(name = "room_id",nullable = false)
+        private Room room;
+
+        @ManyToOne
+        @JoinColumn(name = "user_id",nullable = false)
+        private User user;
     }

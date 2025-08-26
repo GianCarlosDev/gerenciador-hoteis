@@ -1,8 +1,8 @@
 package br.com.gerenciamentohoteis.gerenciador.Controller;
 
-import br.com.gerenciamentohoteis.gerenciador.Dto.Request.CreateReservaDto;
-import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListReservasByClientDto;
-import br.com.gerenciamentohoteis.gerenciador.Service.ReservaService;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Request.CreateReservationDTO;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListReservationsByClientDTO;
+import br.com.gerenciamentohoteis.gerenciador.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,16 @@ import java.util.stream.Stream;
 @RequestMapping("/quarto")
 public class ReservaController {
     @Autowired
-    private ReservaService reservaService;
+    private ReservationService reservationService;
 
     @PostMapping("/reservar")
-    public ResponseEntity<CreateReservaDto> reservandoQuarto(@RequestParam String nomeHotel ,@RequestParam Integer numero, @RequestBody CreateReservaDto reservaDto){
-        reservaService.reservando(nomeHotel,numero,reservaDto);
+    public ResponseEntity<CreateReservationDTO> reservingRoom(@RequestParam String nomeHotel , @RequestParam Integer numero, @RequestBody CreateReservationDTO reservaDto){
+        reservationService.booking(nomeHotel,numero,reservaDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @GetMapping("/{cpf}/reservas")
-    public ResponseEntity<Stream<ListReservasByClientDto>> consultandoReservas(@PathVariable ("cpf") String cpf){
-     Stream<ListReservasByClientDto>clientDtoStream = reservaService.consultandoReservas(cpf);
+    @GetMapping("/{userId}/reservas")
+    public ResponseEntity<Stream<ListReservationsByClientDTO>> checkingReservations(@PathVariable ("userId") Long userId){
+     Stream<ListReservationsByClientDTO>clientDtoStream = reservationService.checkingReservation(userId);
      return ResponseEntity.status(HttpStatus.OK).body(clientDtoStream);
     }
 }

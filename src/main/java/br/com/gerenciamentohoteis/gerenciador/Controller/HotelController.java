@@ -1,10 +1,10 @@
 package br.com.gerenciamentohoteis.gerenciador.Controller;
 
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.*;
-import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListHotelDto;
-import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListQuartoDto;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListHotelDTO;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListRoomDTO;
 import br.com.gerenciamentohoteis.gerenciador.Service.HotelService;
-import br.com.gerenciamentohoteis.gerenciador.Service.QuartoService;
+import br.com.gerenciamentohoteis.gerenciador.Service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,57 +19,57 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
     @Autowired
-    private QuartoService quartoService;
+    private RoomService roomService;
 
     @PostMapping
-    public ResponseEntity<CreatedHotelDto> criandoHotel(@RequestBody CreatedHotelDto dto){
+    public ResponseEntity<CreatedHotelDTO> createHotel(@RequestBody CreatedHotelDTO dto){
         hotelService.createdHotel(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @GetMapping
-    public ResponseEntity<Stream<ListHotelDto>> listarHoteis(){
-        Stream<ListHotelDto> dtoStream = hotelService.listaDeHoteis();
+    public ResponseEntity<Stream<ListHotelDTO>> listHotel(){
+        Stream<ListHotelDTO> dtoStream = hotelService.listHotel();
         return ResponseEntity.ok().body(dtoStream);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<GetById> getHotelById (@PathVariable ("id") Long id){
-        GetById getById = hotelService.getHotelById(id);
-        return ResponseEntity.ok().body(getById);
+    public ResponseEntity<GetHotelByIdDTO> getHotelById (@PathVariable ("id") Long id){
+        GetHotelByIdDTO getHotelByIdDTO = hotelService.getHotelById(id);
+        return ResponseEntity.ok().body(getHotelByIdDTO);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateHotelById(@PathVariable ("id") Long id, @RequestBody UpdateHotelDto updateHotelDto){
+    public ResponseEntity<Void> updateHotelById(@PathVariable ("id") Long id, @RequestBody UpdateHotelDTO updateHotelDto){
         hotelService.updateById(id,updateHotelDto);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteHotelById(@PathVariable("id") Long id){
         hotelService.deleteHotelById(id);
         return ResponseEntity.noContent().build();
     }
     @PostMapping("/{hotelId}/quarto")
-    public ResponseEntity<CreatedQuartoDto> criarUmQuarto(@PathVariable ("hotelId") Long hotelId, @RequestBody CreatedQuartoDto createdQuartoDto){
-        quartoService.createdQuarto(hotelId,createdQuartoDto);
+    public ResponseEntity<CreatedRoomDTO> createRoom(@PathVariable ("hotelId") Long hotelId, @RequestBody CreatedRoomDTO createdRoomDto){
+        roomService.CreateRoom(hotelId, createdRoomDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @GetMapping("/{hotelId}/quarto")
-    public ResponseEntity<Stream<ListQuartoDto>> listarQuartos(@PathVariable ("hotelId") Long hotelId){
-        Stream<ListQuartoDto> quartoDtoStream = quartoService.listQuartos(hotelId);
+    public ResponseEntity<Stream<ListRoomDTO>> listRoom(@PathVariable ("hotelId") Long hotelId){
+        Stream<ListRoomDTO> quartoDtoStream = roomService.listRoom(hotelId);
         return ResponseEntity.status(HttpStatus.OK).body(quartoDtoStream);
     }
     @GetMapping("/{hotelId}/{id}/quarto")
-    public ResponseEntity<GetQuartoByHotel> quartoByHotel(@PathVariable("hotelId") Long hotelId, @PathVariable("id") Long id){
-        GetQuartoByHotel getQuarto = quartoService.quartoByHotel(hotelId,id);
+    public ResponseEntity<GetRoomByHotelDTO> getRoomById(@PathVariable("hotelId") Long hotelId, @PathVariable("id") Long id){
+        GetRoomByHotelDTO getQuarto = roomService.roomByHotel(hotelId,id);
         return ResponseEntity.status(HttpStatus.OK).body(getQuarto);
     }
     @DeleteMapping("/{hotelId}/{id}/quarto")
-    public ResponseEntity<Void> deleteQuarto(@PathVariable("hotelId")Long hotelId, @PathVariable("id")Long id){
-        quartoService.deleteQuartoById(hotelId,id);
+    public ResponseEntity<Void> deleteRoom(@PathVariable("hotelId")Long hotelId, @PathVariable("id")Long id){
+        roomService.deleteRoomById(hotelId,id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     @PutMapping("/{hotelId}/{id}/quarto")
-    public ResponseEntity<Void> updateQuartoById(@PathVariable("hotelId")Long hotelId, @PathVariable("id")Long id,@RequestBody UpdateQuartoDto dto){
-        quartoService.updateQuarto(hotelId,id,dto);
+    public ResponseEntity<Void> updateRoomById(@PathVariable("hotelId")Long hotelId, @PathVariable("id")Long id, @RequestBody UpdateRoomDTO dto){
+        roomService.updateRoom(hotelId,id,dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
