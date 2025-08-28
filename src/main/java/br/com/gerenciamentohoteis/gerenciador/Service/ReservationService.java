@@ -5,10 +5,12 @@ import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListReservationsByCli
 import br.com.gerenciamentohoteis.gerenciador.Entity.Hotel;
 import br.com.gerenciamentohoteis.gerenciador.Entity.Room;
 import br.com.gerenciamentohoteis.gerenciador.Entity.Reservation;
+import br.com.gerenciamentohoteis.gerenciador.Entity.User;
 import br.com.gerenciamentohoteis.gerenciador.Exception.exceptions.QuartoNotFoundException;
 import br.com.gerenciamentohoteis.gerenciador.Repository.HotelRepository;
 import br.com.gerenciamentohoteis.gerenciador.Repository.RoomRepository;
 import br.com.gerenciamentohoteis.gerenciador.Repository.ReservationRepository;
+import br.com.gerenciamentohoteis.gerenciador.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +19,31 @@ import java.util.stream.Stream;
 
 @Service
 public class ReservationService {
-    @Autowired
-    private HotelRepository hotelRepository;
-    @Autowired
-    private RoomRepository roomRepository;
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private final HotelRepository hotelRepository;
+    private final RoomRepository roomRepository;
+    private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
-    public CreateReservationDTO booking(String nomeHotel, Integer numero, CreateReservationDTO createReservationDto){
-        Room room = roomRepository.findByRoomPutNumberAndHotel(numero,nomeHotel)
-                .orElseThrow(()-> new QuartoNotFoundException("quarto não encontrado"));
+    public ReservationService(HotelRepository hotelRepository, RoomRepository roomRepository, ReservationRepository reservationRepository, UserRepository userRepository) {
+        this.hotelRepository = hotelRepository;
+        this.roomRepository = roomRepository;
+        this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
+    }
+
+    public CreateReservationDTO booking(String nameHotel, Integer number, CreateReservationDTO createReservationDto){
+        Room room = roomRepository.findByRoomPutNumberAndHotel(number,nameHotel)
+                .orElseThrow(()-> new QuartoNotFoundException("Hotel ou quarto não existe"));
         if(!room.getAvailable()){
             throw new QuartoNotFoundException("quarto reservado para essa data");
         }
+
         Reservation reservation = new Reservation();
+        User user = (User) userRepository.findByEmail(createReservationDto.getEmail());
+        if (user == null) {
+           throw new RuntimeException("Email inválido");
+        }
+
         reservation.setCheckin(createReservationDto.getCheckin());
         reservation.setCheckout(createReservationDto.getCheckout());
         reservation.setRoom(room);

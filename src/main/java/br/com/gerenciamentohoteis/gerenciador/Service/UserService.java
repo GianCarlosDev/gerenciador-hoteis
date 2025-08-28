@@ -1,6 +1,7 @@
 package br.com.gerenciamentohoteis.gerenciador.Service;
 
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.CreateUserDTO;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Response.MyInformationDTO;
 import br.com.gerenciamentohoteis.gerenciador.Entity.User;
 import br.com.gerenciamentohoteis.gerenciador.Exception.exceptions.UserAlreadyCreatedException;
 import br.com.gerenciamentohoteis.gerenciador.Repository.UserRepository;

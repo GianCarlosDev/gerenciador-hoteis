@@ -2,6 +2,7 @@ package br.com.gerenciamentohoteis.gerenciador.Controller;
 
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.AuthenticationDTO;
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.CreateUserDTO;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Response.LoginResponseDTO;
 import br.com.gerenciamentohoteis.gerenciador.Service.AuthenticationService;
 import br.com.gerenciamentohoteis.gerenciador.Service.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,9 @@ public class AuthenticationController{
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationDTO> login(@RequestBody @Validated AuthenticationDTO data){
-        authenticationService.authentication(data);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated AuthenticationDTO data){
+        LoginResponseDTO token = authenticationService.authentication(data);
+        return ResponseEntity.ok().body(token);
     }
     @PostMapping("/register")
     public ResponseEntity<CreateUserDTO> register(@RequestBody @Validated CreateUserDTO userDTO){

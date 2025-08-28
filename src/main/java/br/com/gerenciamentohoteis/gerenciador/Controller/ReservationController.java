@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/quarto")
-public class ReservaController {
+public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 

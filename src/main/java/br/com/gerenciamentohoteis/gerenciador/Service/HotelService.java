@@ -1,7 +1,7 @@
 package br.com.gerenciamentohoteis.gerenciador.Service;
 
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.CreatedHotelDTO;
-import br.com.gerenciamentohoteis.gerenciador.Dto.Request.GetHotelByIdDTO;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Response.GetHotelByIdDTO;
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.UpdateHotelDTO;
 import br.com.gerenciamentohoteis.gerenciador.Dto.Response.ListHotelDTO;
 import br.com.gerenciamentohoteis.gerenciador.Entity.Hotel;
