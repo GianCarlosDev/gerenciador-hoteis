@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/quarto")
+@RequestMapping("/confirmar")
 public class ReservationController {
     @Autowired
     private ReservationService reservationService;

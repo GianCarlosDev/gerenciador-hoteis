@@ -1,7 +1,7 @@
 package br.com.gerenciamentohoteis.gerenciador.Service;
 
 import br.com.gerenciamentohoteis.gerenciador.Dto.Request.CreateUserDTO;
-import br.com.gerenciamentohoteis.gerenciador.Dto.Response.MyInformationDTO;
+import br.com.gerenciamentohoteis.gerenciador.Dto.Request.MyInformationDTO;
 import br.com.gerenciamentohoteis.gerenciador.Entity.User;
 import br.com.gerenciamentohoteis.gerenciador.Exception.exceptions.UserAlreadyCreatedException;
 import br.com.gerenciamentohoteis.gerenciador.Repository.UserRepository;
@@ -28,5 +28,15 @@ public class UserService {
         user.setRole(userDTO.getRole());
         userRepository.save(user);
         return userDTO;
+    }
+    public MyInformationDTO myInformation(String email){
+        User user = (User) userRepository.findByEmail(email);
+        if (user == null){
+            throw new RuntimeException("Usuario não encontrado");
+        }
+        return new MyInformationDTO(
+                user.getUserId(),
+                user.getNameUser(),
+                user.getRole());
     }
 }
