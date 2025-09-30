@@ -11,7 +11,6 @@ import br.com.gerenciamentohoteis.gerenciador.Repository.HotelRepository;
 import br.com.gerenciamentohoteis.gerenciador.Repository.RoomRepository;
 import br.com.gerenciamentohoteis.gerenciador.Repository.ReservationRepository;
 import br.com.gerenciamentohoteis.gerenciador.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ReservationService {
     }
 
     public CreateReservationDTO booking(String nameHotel, Integer number, CreateReservationDTO createReservationDto){
-        Room room = roomRepository.findByRoomPutNumberAndHotel(number,nameHotel)
+        Room room = roomRepository.findByRoomNumberAndHotelName(number,nameHotel)
                 .orElseThrow(()-> new QuartoNotFoundException("Hotel ou quarto não existe"));
         if(!room.getAvailable()){
             throw new QuartoNotFoundException("quarto reservado para essa data");
